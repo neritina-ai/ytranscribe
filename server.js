@@ -1,10 +1,12 @@
+#!/usr/bin/env node
 const express = require('express');
+const path = require('path');
 const { YoutubeTranscript } = require('youtube-transcript');
 
 const app = express();
 const PORT = 3000;
 
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 function extractVideoId(input) {
   const patterns = [

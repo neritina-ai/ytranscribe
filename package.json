@@ -2,7 +2,10 @@
   "name": "ytranscribe",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
+  "bin": {
+    "ytranscribe": "./server.js"
+  },
   "scripts": {
     "start": "node server.js"
   },

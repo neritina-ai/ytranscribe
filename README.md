@@ -1,6 +1,6 @@
 # YTranscribe
 
-貼上 YouTube 網址，自動抓取字幕並複製到剪貼簿，方便貼給 AI 分析。
+輸入 YouTube 網址，自動抓取字幕並複製到剪貼簿，方便貼給 AI 分析。
 
 ## 系統需求
 
@@ -9,13 +9,13 @@
 ## 安裝
 
 ```bash
-npm install github:neritina/ytranscribe
+npm install -g github:neritina-ai/ytranscribe
 ```
 
-## 啟動
+## 啟動（單次執行）
 
 ```bash
-npm start
+ytranscribe
 ```
 
 啟動後開瀏覽器前往：
@@ -24,12 +24,57 @@ npm start
 http://localhost:3000
 ```
 
+停止請按 `Ctrl+C`。
+
 ## 使用方式
 
-1. 將 YouTube 影片網址貼到輸入框
+1. 將 YouTube 影片網址輸入欄位
 2. 按「開始處理」或按 Enter
-3. 此時字幕已自動複製到剪貼簿，直接開啟 AI 新對話，貼上即可產生報告
+3. 字幕已自動複製到剪貼簿，直接開啟 AI 新對話貼上即可
 4. 必要時可修改前置提示詞
+
+## 以 Service 方式執行（自動啟動）
+
+### 1. 安裝 pm2
+
+```bash
+npm install -g pm2
+```
+
+### 2. 啟動並儲存狀態
+
+```bash
+pm2 start ytranscribe
+pm2 save              # 儲存目前的 process 清單，開機自動啟動時才知道要跑哪些服務
+```
+
+### 3. 設定登入時自動啟動
+
+**Windows：**（不需要管理員權限，登入此使用者帳號時自動啟動）
+
+```bash
+npm install -g pm2-windows-startup
+pm2-startup install
+```
+
+**Mac / Linux：**（需要 sudo 權限）
+
+```bash
+pm2 startup
+```
+
+pm2 會印出一段指令，複製後在指令前加 `sudo` 執行即可。
+
+### 管理服務
+
+```bash
+pm2 status                # 查看服務狀態
+pm2 stop ytranscribe      # 暫停（下次開機仍會自動啟動）
+pm2 start ytranscribe     # 重新啟動
+pm2 restart ytranscribe   # 重啟（已在執行中時用這個）
+pm2 logs ytranscribe      # 查看 log
+pm2 delete ytranscribe    # 完全移除，不再以 service 執行
+```
 
 ## 注意事項
 
