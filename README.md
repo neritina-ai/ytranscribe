@@ -41,14 +41,31 @@ http://localhost:3000
 npm install -g pm2
 ```
 
-### 2. 啟動並儲存狀態
+### 2. 啟動
+
+**Mac / Linux：**
 
 ```bash
 pm2 start ytranscribe
-pm2 save              # 儲存目前的 process 清單，開機自動啟動時才知道要跑哪些服務
 ```
 
-### 3. 設定登入時自動啟動
+**Windows（PowerShell）：**
+
+pm2 在 Windows 上會嘗試將 `ytranscribe.cmd` 當成 Node.js 腳本執行，導致語法錯誤，需改用 `ecosystem.config.js`：
+
+```powershell
+pm2 start "$(npm root -g)\ytranscribe\ecosystem.config.js"
+```
+
+### 3. 儲存狀態
+
+若需要自動啟動，執行以下指令讓 pm2 記住目前的 process 清單：
+
+```bash
+pm2 save
+```
+
+### 4. 設定登入時自動啟動
 
 **Windows：**（不需要管理員權限，登入此使用者帳號時自動啟動）
 
