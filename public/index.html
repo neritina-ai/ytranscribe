@@ -222,7 +222,7 @@
       transcriptEl.textContent = '';
 
       try {
-        const res = await fetch('/transcript?url=' + encodeURIComponent(url));
+        const res = await fetch(location.pathname.replace(/\/?$/, '/') + 'transcript?url=' + encodeURIComponent(url));
         const data = await res.json();
 
         if (!res.ok) throw new Error(data.error);
